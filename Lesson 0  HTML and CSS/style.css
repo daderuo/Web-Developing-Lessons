@@ -1,0 +1,126 @@
+@media (min-width: 800px) {
+  #header h1 {
+    font-size: 80px;
+  }
+  #header h3 {
+    font-size: 40px;
+  }
+  #navbar a {
+    font-size: 40px;
+  }
+  #navbar .navbar-subitem ul a {
+    font-size: 26.66667px;
+  }
+  #footer h1 {
+    font-size: 26.66667px;
+  }
+}
+
+@media (max-width: 799px) {
+  #header h1 {
+    font-size: 40px;
+  }
+  #header h3 {
+    font-size: 20px;
+  }
+  #navbar a {
+    font-size: 20px;
+  }
+  #navbar .navbar-subitem ul a {
+    font-size: 13.33333px;
+  }
+  #footer h1 {
+    font-size: 13.33333px;
+  }
+}
+
+#header, #footer {
+  padding: 20px;
+  background-color: #ececec;
+  text-align: center;
+}
+
+#header h1, #header h3, #footer h1, #footer h3 {
+  color: #ff6600;
+}
+
+#footer {
+  margin-top: 5px;
+}
+
+#grid {
+  display: -ms-grid;
+  display: grid;
+  grid-column-gap: 5px;
+  -ms-grid-columns: 20% auto;
+      grid-template-columns: 20% auto;
+}
+
+#navbar, #content {
+  margin-top: 5px;
+  border: 1px solid #ff6600;
+}
+
+#navbar ul, #content ul, #navbar li, #content li {
+  list-style: none;
+  padding: 0px;
+}
+
+#navbar a, #content a {
+  text-decoration: none;
+  color: #ff6600;
+  padding: 5px;
+}
+
+#navbar {
+  background-color: #ffc979;
+}
+
+#navbar li:hover {
+  background-color: #ff6600;
+}
+
+#navbar li:hover a {
+  color: #ffc979;
+}
+
+#navbar .navbar-subitem ul {
+  display: none;
+}
+
+#navbar .navbar-subitem:hover ul {
+  display: block;
+  background-color: #ffc979;
+}
+
+#navbar .navbar-subitem:hover ul a {
+  color: #ff6600;
+}
+
+#navbar .navbar-subitem:hover ul a:hover {
+  color: #ffc979;
+}
+
+#content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#content .content-item {
+  border: 1px solid #ff6600;
+  margin: 10px;
+  font-size: 26.66667px;
+  width: 21%;
+  min-width: 200px;
+  max-width: 300px;
+  min-height: 100px;
+  max-height: 200px;
+  text-align: center;
+}
+/*# sourceMappingURL=style.css.map */
