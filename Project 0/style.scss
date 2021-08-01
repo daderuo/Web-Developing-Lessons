@@ -1,0 +1,36 @@
+ul,li,a{
+    text-decoration: none;
+    list-style: none;
+}
+
+.To-The-Right{
+    text-align: right;
+    li{
+        display: inline-flex;
+        margin: 5px;
+    }
+
+    a{
+        color:#8f9397;
+    }
+
+    a:hover{
+        text-decoration: underline;
+    }    
+}
+
+.Classic{
+    text-align: center;
+    
+    input[type="text"]{
+        width: 40%;
+        min-width: 350px;
+        height: 30px;
+        padding: 5px;
+        border: 1px solid #8f9397;
+    }
+    input[type="submit"]{
+        position: absolute;
+        margin-top: 50px;
+    }
+}

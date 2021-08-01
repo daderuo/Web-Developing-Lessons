@@ -1,0 +1,41 @@
+ul, li, a {
+  text-decoration: none;
+  list-style: none;
+}
+
+.To-The-Right {
+  text-align: right;
+}
+
+.To-The-Right li {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  margin: 5px;
+}
+
+.To-The-Right a {
+  color: #8f9397;
+}
+
+.To-The-Right a:hover {
+  text-decoration: underline;
+}
+
+.Classic {
+  text-align: center;
+}
+
+.Classic input[type="text"] {
+  width: 40%;
+  min-width: 350px;
+  height: 30px;
+  padding: 5px;
+  border: 1px solid #8f9397;
+}
+
+.Classic input[type="submit"] {
+  position: absolute;
+  margin-top: 50px;
+}
+/*# sourceMappingURL=style.css.map */
