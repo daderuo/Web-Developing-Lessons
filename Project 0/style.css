@@ -1,6 +1,8 @@
 ul, li, a {
   text-decoration: none;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .To-The-Right {
@@ -25,8 +27,28 @@ ul, li, a {
 h1 {
   text-align: center;
   font-size: 50px;
-  margin: 10px;
   color: orange;
+}
+
+input[type="text"] {
+  padding: 5px;
+  border: 1px solid #dfe1e5;
+  background-color: white;
+  outline: none;
+  font-size: 14px;
+}
+
+button[type="submit"] {
+  padding: 7px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 10px;
+  font-family: arial,sans-serif;
+  font-size: 14px;
 }
 
 .Classic {
@@ -38,39 +60,24 @@ h1 {
 
 .Classic input[type="text"] {
   width: 98%;
-  padding: 5px;
   height: 30px;
-  border: 1px solid #dfe1e5;
   -webkit-box-shadow: none;
           box-shadow: none;
   border-radius: 24px;
-  background-color: white;
-  outline: none;
   text-indent: 25px;
-  font-size: 14px;
 }
 
-.Classic button[type="text"]:hover, .Classic button[type="text"]:focus {
+.Classic input[type="text"]:hover, .Classic input[type="text"]:focus {
   border-color: rgba(223, 225, 229, 0);
   -webkit-box-shadow: 0 1px 6px rgba(94, 94, 94, 0.28);
           box-shadow: 0 1px 6px rgba(94, 94, 94, 0.28);
 }
 
 .Classic button[type="submit"] {
-  padding: 7px;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  margin: 10px;
   background-color: #f8f9fa;
   border: 1px solid #f8f9fa;
   border-radius: 4px;
   color: #3c4043;
-  font-family: arial,sans-serif;
-  font-size: 14px;
 }
 
 .Classic button[type="submit"]:hover {
@@ -81,5 +88,75 @@ h1 {
 
 .Classic button[type="submit"]:active {
   border-color: blue;
+}
+
+@media (min-width: 800px) {
+  .Advanced li {
+    -ms-grid-columns: 200px 554px auto;
+        grid-template-columns: 200px 554px auto;
+  }
+}
+
+@media (max-width: 799px) {
+  .Advanced li {
+    -ms-grid-columns: 200px auto 40px;
+        grid-template-columns: 200px auto 40px;
+  }
+}
+
+.Advanced {
+  padding: 15px;
+}
+
+.Advanced h1 {
+  text-align: left;
+  font-size: 18px;
+  color: black;
+}
+
+.Advanced h3 {
+  text-align: left;
+  font-size: 14px;
+  color: black;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.Advanced li {
+  margin: 10px 0;
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "a a b" "a a b" "c d e";
+}
+
+.Advanced input[type="text"] {
+  padding: 0;
+  min-width: 216px;
+  width: 100%;
+  max-width: 554px;
+  text-indent: 10px;
+  height: 25px;
+}
+
+.Advanced input[type="text"]:focus {
+  border: 1px solid rgba(21, 21, 255, 0.87);
+}
+
+.Advanced button[type="submit"] {
+  background-color: #4d90fe;
+  color: white;
+  border: none;
+  -ms-grid-row: 3;
+  -ms-grid-column: 2;
+  grid-area: d;
+  -ms-grid-column-align: end;
+      justify-self: end;
+  margin: 0;
+  border-radius: 2px;
+}
+
+.Advanced button[type="submit"]:hover {
+  background-color: #2a7afa;
 }
 /*# sourceMappingURL=style.css.map */
