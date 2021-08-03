@@ -28,18 +28,17 @@ h1{
 }
 
 input[type="text"]{    
-    padding: 5px;
     border: 1px solid #dfe1e5;
     background-color: white;
     outline: none;
     font-size: 14px;
+    padding: 0;
 }
 
 button[type="submit"]{
     padding: 7px;
     height: fit-content;
     width:fit-content;
-    margin: 10px;
     font-family: arial,sans-serif;
     font-size: 14px;
 }
@@ -68,6 +67,7 @@ button[type="submit"]{
         border: 1px solid #f8f9fa;
         border-radius: 4px;
         color: #3c4043;
+        margin: 10px;
     }
 
     button[type="submit"]:hover{
@@ -84,13 +84,19 @@ button[type="submit"]{
     .Advanced {
         li{
             grid-template-columns: 200px 554px auto;
+            grid-template-areas:
+            "a b c";
         }
     } 
 
 }
 @media(max-width:799px){   
-    .Advanced li{         
-        grid-template-columns: 200px auto 40px; 
+    .Advanced {  
+        li{       
+            grid-template-columns: 200px auto 40px; 
+            grid-template-areas:
+            "a b";
+        }
     }      
 } 
 
@@ -112,15 +118,10 @@ button[type="submit"]{
 
     li{
         margin: 10px 0;
-        display: grid; 
-        grid-template-areas:
-        "a a b"
-        "a a b"
-        "c d e";   
+        display: grid;    
     }
 
     input[type="text"]{
-        padding: 0;
         min-width: 216px;
         width: 100%;
         max-width: 554px;
@@ -136,9 +137,8 @@ button[type="submit"]{
         background-color: #4d90fe;
         color: white;
         border: none;
-        grid-area: d;
+        grid-area: b;
         justify-self: end;
-        margin: 0;
         border-radius: 2px;
     }
 
