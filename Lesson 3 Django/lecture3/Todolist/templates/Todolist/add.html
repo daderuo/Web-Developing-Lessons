@@ -1,18 +1,11 @@
-{% load static %}
+{% extends "Todolist/layout.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'Todolist/style.css'%}">
-</head>
-<body>
-    <ul>
-        <h1>Add your new task</h1>
-       <form>
-           <input type="text", name="newtask">
-           <input type="submit">
-       </form>
-    </ul>
-</body>
-</html>
+{% block body %}
+    <h1>Add your new task</h1>
+    <form action="{% url 'task:add' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+    <a href="{% url 'task:index' %}"> Go to list</a>
+{% endblock %}

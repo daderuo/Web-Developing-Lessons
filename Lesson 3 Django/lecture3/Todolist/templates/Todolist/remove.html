@@ -1,0 +1,14 @@
+{% extends "Todolist/layout.html" %}
+
+{% block body %}           
+            {% for task in Todo %}
+                <form action="{% url 'task:remove' %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" value="{{ task }}" name="Remove"> 
+                    <input type="submit" value="remove">
+                </form>
+            {% empty %}
+                <li>No tasks</li>            
+            {% endfor %}
+    <a href="{% url 'task:index' %}"> View task </a>
+{% endblock %}
