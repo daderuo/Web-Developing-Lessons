@@ -31,16 +31,19 @@ def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": Entries
     })
-    
+
+#Markdown conversion
+import markdown2
 
 def show(request, Title = None):
-    Content = util.get_entry(Title)
+    Content = util.get_entry(Title)    
+
     if Content == None:
         Title = "Error"
         Content = "Error 404 Page not found!"
     return render(request, "encyclopedia/show.html", {
         "Title" : Title,
-        "ToShow" : Content
+        "ToShow" : markdown2.markdown(Content)
     })
 
 
@@ -59,6 +62,7 @@ def new(request):
             Title = form.cleaned_data["title"]
             Content = form.cleaned_data["text"]
 
+
             Entries = util.list_entries()
             for entry in Entries:
                 if Title == entry:
@@ -68,7 +72,7 @@ def new(request):
                         "error": "Error: entry already exist!"
                     })
 
-            util.save_entry(Title, Content)
+            util.save_entry(Title, ('# '+ Title + '\n' + Content))
             return HttpResponseRedirect(reverse("wiki:show",args=(Title,)))
 
     return render(request,"encyclopedia/editor.html",{

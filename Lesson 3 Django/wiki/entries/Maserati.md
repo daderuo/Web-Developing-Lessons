@@ -1,1 +1,2 @@
-Maserati is an other italian supercar
+# Maserati
+Maserati is the italian luxury car
