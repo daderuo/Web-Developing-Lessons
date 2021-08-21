@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-color: white;
+    background-color:white;
 }
 
 code {
@@ -10,11 +10,6 @@ code {
 h1 {
     margin-top: 0px;
     padding-top: 20px;
-}
-
-textarea {
-    height: 90vh;
-    width: 80%;
 }
 
 .main {
@@ -35,4 +30,30 @@ textarea {
 
 .sidebar h2 {
     margin-top: 5px;
+}
+
+#editor{
+    width: 100%;
+    position: absolute;
+}
+
+.error{
+    color: red;
+}
+
+form > label {
+    font-weight: bold;
+    font-size: 20px;
+    display: block;
+}
+
+form > textarea {
+    height: 50vh;
+    width: 80%;
+    display: block;
+}
+
+form > input[type=submit]{
+    margin-top: 5px;
+    display: block;
 }
