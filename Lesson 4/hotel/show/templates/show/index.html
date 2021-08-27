@@ -1,0 +1,22 @@
+{% extends "show/layout.html" %}
+
+{% block body %}
+    <h1>Welcome to Dade Hotel</h1>
+
+    <h2>Our room list</h2>
+
+    <ul>
+        {% for room in rooms %}
+            <li>{{ room }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Filters</h2>
+    <ul>
+        <li><a href="{% url 'show:available' %}"> Available rooms </a></li>
+        <li><a href="{% url 'show:booked' %}"> Booked rooms </a></li>
+        <li><a href="{% url 'show:index' %}">Remove filters </a></li>
+    </ul>
+
+    <a href="{% url 'reservations:index' %}"> Book a new room </a>
+{% endblock %}

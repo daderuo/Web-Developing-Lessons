@@ -1,0 +1,19 @@
+{% extends 'reservations/layout.html' %}
+
+{% block body %}
+
+    <form action="{% url 'reservations:add_guest' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="first" id="">
+        <input type="text" name="last" id="">
+        <select name="room" id="">
+            {% for room in rooms %}
+                <option value="{{room.id}}">{{room.room}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Book">
+    </form>
+
+    <a href="{% url 'show:index' %}"> Back to Home </a>
+
+{% endblock %}
