@@ -1,11 +1,32 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
+    <div class="bar">
+        <div class="left">
+            <h2>Active Listings</h2>
+        </div>
+        <div class="right">
+            <h2>Sort by</h2>
+        </div>        
+    </div>
 
-    <ul>
+    <div class="grid">
         {% for auction in auctions %}
-            <li>{{ auction }} <img src="{{ auction.image.url }}" alt="asd" style="width:100px"></li>            
+            <a href="">            
+                <div class="auction">
+                    <div class="image" style="background-image:  url('{{ auction.image.url }}'); background-size:cover;">
+                    </div>
+                    <div class="info">
+                        <div class="bar">
+                            <div class="info-title"><h3>{{ auction.title }}</h3></div>
+                            <div class="info-price"><h5>{{ auction.price }} €</h5></div>
+                        </div>
+                        
+                        <div class="info-description"><h5>{{ auction.description }}</h5></div>
+                        
+                    </div>
+                </div>   
+            </a>                                     
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}

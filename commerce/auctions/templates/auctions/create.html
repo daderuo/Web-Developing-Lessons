@@ -3,53 +3,45 @@
 {% block body %}    
     <form action="{% url 'create' %}" method="post" enctype="multipart/form-data">
         {% csrf_token%}
-        <div class="form-group row">
-            <div class="col-sm-4">
+        <div class="row">
+            <div class="col-sm-11">
                 <h2>Create Listing</h2>
-            </div>            
-            
+            </div>  
+                     
         </div>
         
-        <div class="form-group">            
-            <input class="form-control" autofocus type="text" name="title" placeholder="Title">
-        </div>
         <div class="form-group">
-            <textarea class="form-control form-control-sm" name="description" cols="30" rows="10" placeholder="Description"></textarea>
+            {% for field in form %}  
+                {% if  field == form.description or field == form.title %}         
+                    {{ field.errors }}                    
+                    <h4>{{ field.label_tag }}</h4> {{ field }}
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %} 
+                {% endif %}          
+            {% endfor %}
         </div>
-        <div class="form-row">            
-            <label for="price" class="col-md-3 col-form-label">Start price:</label>
-            <label for="price" class="col-md-4 col-form-label">Picture:</label>
-            <label for="price" class="col-md-3 col-form-label">Category:</label>
-        </div>
-        
-        <div class="form-row">
-            <div class="col-md-3">                
-                <div class="input-group">
-                    <input type="number" class="form-control"name="price" value="" min="0" step="0.01" id="price">
-                    <div class="input-group-append">
-                        <span class="input-group-text"> € </span>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="col-md-4">
-                <input class="form-group" type="file" name="img">
-            </div>
 
-            <div class="col-md-3">
-                <select class="form-group" name="category">
-                    <option value="Fashion">Fashion</option>
-                    <option value="Electronic">Electronic</option>
-                    <option value="Garden">Garden</option>
-                    <option value="Toys">Toys</option>
-                </select>
+        <div class="form-inline row form-control-sm">            
+            {% for field in form %}                  
+                {% if  field == form.description or field == form.title %} 
+                {% else %}                            
+                    {{ field.errors }}                    
+                        <div class="input-group col-md-3">
+                            <h4>{{ field.label_tag }}</h4>
+                            {{ field }}
+                            {% if field == form.price %}                        
+                                <h4> € </h4> 
+                            {% endif %}
+                        </div>                     
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}                    
+                {% endif %}                        
+            {% endfor %}
+            <div class="d-flex justify-content-end col-md-3">
+                <input type="submit" class="btn btn-primary" value="Create"> 
             </div>
-
-            <div class="col-md-2 align-items-right">
-                <input type="submit" name="save" value="Create New Listing" class="btn btn-primary" style="float: right;">
-            </div>
-
-        </div>     
+        </div>               
     </form>
 {% endblock %}
