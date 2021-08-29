@@ -40,6 +40,7 @@ body {
     padding: 5px;
     background-color: rgb(243, 243, 243);
     color: black;
+    border: 1px solid rgb(173, 211, 255);
 }
 
 .info-title{

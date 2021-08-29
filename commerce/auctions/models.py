@@ -16,12 +16,17 @@ class User(AbstractUser):
 class Listing(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    price = models.FloatField()
+    start_price = models.FloatField()
+    current_price = models.FloatField()
+    final_price = models.FloatField()
     image = models.ImageField(upload_to='photo/')
     category = models.CharField(choices=cat, max_length=20)
+    active = models.BooleanField(default=True)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="auction")
 
     def __str__(self):
-        return f"{self.title}: {self.description}. Price: {self.price}. Category: {self.category}"
+        return f"{self.title}: {self.description}. Start Price: {self.start_price}, Current Price: {self.current_price}, Final Price: {self.final_price}. Category: {self.category}, Active: {self.active}"
+
 
 class Bids(models.Model):
     pass 
