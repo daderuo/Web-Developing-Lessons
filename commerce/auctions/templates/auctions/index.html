@@ -3,16 +3,16 @@
 {% block body %}
     <div class="bar">
         <div class="left">
-            <h2>Active Listings</h2>
+            <h2>{{ text }}</h2>
         </div>
         <div class="right">
-            <h2>Sort by</h2>
+            <h2></h2>
         </div>        
     </div>
 
     <div class="grid">
         {% if not auctions %}
-            <h1>No ative Auction</h1>
+            <h1>No Items</h1>
         {% endif %}
         {% for auction in auctions %}
             <a href="{% url 'auction' auction.id %}">            

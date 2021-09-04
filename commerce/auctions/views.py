@@ -4,6 +4,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.db.models import Max
 
 
 from .models import *
@@ -13,7 +14,8 @@ from .form import *
 def index(request):
     auctions = Listing.objects.filter(active=True)
     return render(request, "auctions/index.html",{
-        "auctions": auctions
+        "auctions": auctions,
+        "text": "Active Auctions"
     })
 
 @login_required(login_url='/login/')
@@ -39,14 +41,16 @@ def create(request):
             final_price = start_price, 
             image = request.FILES['image'],
             category = category,
-            active = True,
-            creator = request.user
+            active = True
             )
-
-        
+               
         #img_url = Listing(image = request.FILES['img'])
         #img_url.save()
         listing.save()
+        listing = Listing.objects.get(title = title)
+        user = request.user
+        user.auctions.add(listing)
+        #listing.creator.add() 
 
         return HttpResponseRedirect(reverse("index"))
 
@@ -69,7 +73,7 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse(next))
+            return HttpResponseRedirect(next)
         else:
             return render(request, "auctions/login.html", {
                 "message": "Invalid username and/or password.",
@@ -77,10 +81,8 @@ def login_view(request):
             })
     else:
         next = request.GET.get('next', '/index/')
-        next = next[1:]
-        next = next[:-1]
-        if next == "":
-            next = 'index'
+        #if next == "":
+            #next = 'index'
         return render(request, "auctions/login.html",{
             "next": next
         })
@@ -120,14 +122,109 @@ def register(request):
 
 def auctions(request, id):
     auction = Listing.objects.get(id=id)
+    creator = auction.creator.get()
+    error = ''
+    minbid = auction.current_price + 1.0
+    user = request.user
 
+    if auction.active == False:
+        bids = Bids.objects.filter(auction=auction)                    
+        for bid in bids:
+            if bid.value == auction.final_price:
+                winner = bid.user
+    else:
+        winner = ''
 
-    watchlist = False
-    bid = False
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            if request.POST.get('add'):                
+                user.watchlist.add(auction)
 
-    
+            elif request.POST.get('rem'):                
+                user.watchlist.remove(auction)
+
+            elif request.POST.get('comment'):                
+                NewComment = Comments(
+                    user = user,
+                    text = request.POST['text'],
+                    auction = auction
+                )
+                NewComment.save()
+            
+            elif request.POST.get('close'): 
+                if user == creator:               
+                    auction.active = False
+                    auction.final_price = auction.current_price
+                    auction.save()
+                    bids = Bids.objects.filter(auction=auction)
+                    
+                    for bid in bids:
+                        if bid.value == auction.final_price:
+                            winner = bid.user
+                        
+                    winner.winner.add(auction)
+                    #return HttpResponseRedirect(reverse("index"))
+
+            elif request.POST.get('bid'):
+                value = float(request.POST["value"])
+                if value:
+                    bid = Bids(
+                        value = value,
+                        auction = auction,
+                        user = user
+                    )
+                    bid.save()
+                if value > auction.current_price:
+                    auction.current_price = value
+                    auction.save()
+                else:
+                    error='Current price is higher then your bid'
+
+    try:
+        if user.watchlist.get(id=auction.id):
+            watchlist = True
+    except:
+        watchlist = False
+
+    try:
+        comments = Comments.objects.filter(auction=auction)
+    except:
+        comments = 'ciao'
+
+    commentForm = NewCommentForm
+
+    form = NewBidForm()
     return render(request, "auctions/auction.html",{
         "auction": auction,
-        "watchlist": watchlist,
-        "bid": bid
+        "creator": creator,
+        "form": form,
+        "error": error,
+        "minbid": minbid,
+        "watchlist":watchlist,
+        "winner":winner,
+        "comments": comments,
+        'commentForm': commentForm
+    })
+
+def WatchList(request):
+    watchlist = request.user.watchlist.all()
+    return render(request, "auctions/index.html",{
+        "auctions": watchlist,
+        "text": "Your watchlist"
+    })
+
+def categories(request,selected= None):
+    if selected:
+        auctions = Listing.objects.filter(category=selected, active=True)
+        return render(request, "auctions/index.html",{
+            "auctions": auctions,
+            "text": "Category " + selected
+        })
+    
+    categorie = []
+    for item in cat:
+        categorie.append(item[0])
+        
+    return render(request, "auctions/categories.html",{
+        "categories": categorie
     })

@@ -9,7 +9,7 @@ body {
 
 .Content{
     width: 96%;
-    margin-left: 2%;    
+    margin-left: 2%;   
 }
 
 .grid{
@@ -69,13 +69,23 @@ body {
 
 .left{
     float:left;
-    display:block
+    display:block;
 }
 
 .right{
     display:block;
     float:right;
 }
+
+.auction-title{
+    display: block;
+}
+
+.col-4 > img{
+    width:100%;
+}
+
+
 
 
 
