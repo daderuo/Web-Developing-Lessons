@@ -1,0 +1,47 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}    
+    <form action="{% url 'create' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token%}
+        <div class="row">
+            <div class="col-sm-11">
+                <h2>Create Listing</h2>
+            </div>  
+                     
+        </div>
+        
+        <div class="form-group">
+            {% for field in form %}  
+                {% if  field == form.description or field == form.title %}         
+                    {{ field.errors }}                    
+                    <h4>{{ field.label_tag }}</h4> {{ field }}
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %} 
+                {% endif %}          
+            {% endfor %}
+        </div>
+
+        <div class="form-inline row form-control-sm">            
+            {% for field in form %}                  
+                {% if  field == form.description or field == form.title %} 
+                {% else %}                            
+                    {{ field.errors }}                    
+                        <div class="input-group col-md-3">
+                            <h4>{{ field.label_tag }}</h4>
+                            {{ field }}
+                            {% if field == form.start_price %}                        
+                                <h4> € </h4> 
+                            {% endif %}
+                        </div>                     
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}                    
+                {% endif %}                        
+            {% endfor %}
+            <div class="d-flex justify-content-end col-md-3">
+                <input type="submit" class="btn btn-primary" value="Create"> 
+            </div>
+        </div>               
+    </form>
+{% endblock %}

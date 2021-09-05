@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="bar">
+        <div class="left">
+            <h2>{{ text }}</h2>
+        </div>
+        <div class="right">
+            <h2></h2>
+        </div>        
+    </div>
+
+    <div class="grid">
+        {% if not auctions %}
+            <h1>No Items</h1>
+        {% endif %}
+        {% for auction in auctions %}
+            <a href="{% url 'auction' auction.id %}">            
+                <div class="auction">
+                    <div class="image" style="background-image:  url('{{ auction.image.url }}'); background-size:cover;">
+                    </div>
+                    <div class="info">
+                        <div class="bar">
+                            <div class="info-title"><h3>{{ auction.title }}</h3></div>
+                            <div class="info-price"><h5>{{ auction.current_price }} €</h5></div>
+                        </div>
+                        
+                        <div class="info-description"><h5>{{ auction.description }}</h5></div>
+                        
+                    </div>
+                </div>   
+            </a>                                     
+        {% endfor %}
+    </div>
+{% endblock %}
