@@ -1,0 +1,46 @@
+.POST {
+    border: 1px solid rgb(0, 102, 255);
+    margin: 10px;
+}
+
+.NEW_POST{
+    border: 1px solid rgb(0, 102, 255);
+    margin: 10px;
+    padding: 10px;
+}
+
+#F_BAR{
+    border: 1px solid rgb(0, 102, 255);
+    margin: 10px;
+}
+
+#NewPostSubmit{
+    position : relative;
+    color: rgb(0, 102, 255);
+}
+#edit,.like_button{
+    color: rgb(0, 102, 255);
+}
+
+#NewPostText{
+    position :relative;    
+}
+
+#NEXT_PAGE,#PREVIOUS_PAGE,#FOLLOW_BUTTON{
+    margin: 10px; 
+    color: rgb(0, 102, 255);   
+}
+
+.AUTHOR,.AUTHOR:hover{
+    text-decoration: none;
+    font-size:24px;
+    color:black;
+}
+
+.POST{
+    padding : 10px;
+}
+
+.date{
+    color: rgb(121, 121, 121);
+}

@@ -1,0 +1,22 @@
+{% extends "network/layout.html" %}
+
+
+
+{% block body %}
+
+    {% if user.is_authenticated %}
+        <div class="NEW_POST">
+            <form action="{% url 'index' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h1>New Post</h1>
+                {{ NewPost.text }}
+                <div>
+                    <input type="submit" id="NewPostSubmit" value="Post">
+                </div>
+                </form>
+        </div>
+    {% endif %}
+    
+    <div id="posts"></div>
+   
+{% endblock %}
