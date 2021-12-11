@@ -1,0 +1,78 @@
+@media (min-width: 1000px){
+    #Welcome h1{
+        font-size: 4vw;
+    }
+
+    #game-container h1{
+        font-size: 5vw;
+    }
+
+    #game-container h2{
+        font-size: 3vw;
+    }
+
+    #even,#odd,#select{
+        font-size: 3vw;
+        width: 25%;
+    }
+}
+
+@media (max-width: 999px){
+    #Welcome h1{
+        font-size: 40px;
+    }
+
+    #game-container h1{
+        font-size: 50px;
+    }
+
+    #game-container h2{
+        font-size: 30px;
+    }
+
+    #even,#odd,#select{
+        font-size: 30px;
+        width: fit-content;
+    }
+}
+
+@keyframes fade_in{
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity:1;
+    }
+}
+
+#container{
+    background-color:rgba(255, 255, 255, 0.788);
+    width: 50%;
+    opacity: 0%;
+    min-width: 500px;
+    margin:auto;
+    padding: 10px;
+}
+
+#Welcome{
+    text-align: center;
+}
+
+
+body{
+    text-align: center;
+    background-image: url('img/biglie_bg.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#game-container h1{
+    font-weight: bold;
+    color: red;
+}
+
+#even,#odd,#select{
+    color: rgb(0, 159, 252);
+}
+
