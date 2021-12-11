@@ -141,8 +141,9 @@ function PageUpdate(){
     }
     else{
         //aggiorno quantità di biglie
-        computer_ball_text.innerHTML = "Computer:" + computer_ball_n;
-        user_ball_text.innerHTML = "User: " + user_ball_n;
+        computer_ball_text.innerHTML = "Computer: " + computer_ball_n + " ball";
+        const value = JSON.parse(document.getElementById('user').textContent);
+        user_ball_text.innerHTML = value + ": " + user_ball_n + " ball";
     }   
 
     // turn = 0 è il turno di user, turn = 1 è il turno di computer

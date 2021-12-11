@@ -1,0 +1,12 @@
+#game-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#game-list > div {
+    background-color: green;
+    font-size: 20px;
+    margin: 20px;
+    padding: 20px;
+    width: 200px;
+}

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'game/style.css' %}">
 </head>
 <body>
+    {{ user|json_script:"user" }}
     <div id="container">
         <div id="Welcome"><h1 >Even or Odd ?</h1></div>
 
