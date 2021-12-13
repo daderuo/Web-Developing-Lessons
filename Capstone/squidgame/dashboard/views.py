@@ -43,7 +43,7 @@ def logout_view(request):
 def register(request):
     if request.method == "POST":
         username = request.POST["username"]
-
+        email = username + '@dadegames.com'
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
@@ -54,7 +54,7 @@ def register(request):
 
         # Attempt to create new user
         try:
-            user = User.objects.create_user(username, username, password)
+            user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError as e:
             print(e)
@@ -68,6 +68,25 @@ def register(request):
 
 @login_required
 def load_game_list(request):
-    games = Game.objects.all()
+    games = Game.objects.all()       
     games = games.order_by("id").all()
     return JsonResponse([game.serialize() for game in games], safe=False)
+
+@login_required
+def load_gamer_list(request):
+    gamers = User.objects.all()       
+    gamers = gamers.order_by("-win_games").all()
+    return JsonResponse([gamer.serialize() for gamer in gamers], safe=False)
+
+@login_required
+def profile_update(request,item):
+    user = User.objects.get(username = request.user)
+    if item == 1:
+        user.total_games += 1
+    elif item == 2:
+        user.win_games += 1
+    user.save()
+    return JsonResponse({
+        "done": True
+        })
+

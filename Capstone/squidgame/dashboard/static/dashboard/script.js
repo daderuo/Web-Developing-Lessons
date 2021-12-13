@@ -1,3 +1,7 @@
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
 
     // Use buttons to toggle between views
@@ -12,39 +16,69 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function load_view(view){
     game_view = document.querySelector('#game-view');
+    game_list = document.querySelector('#game-list');
     ranking_view = document.querySelector('#ranking-view');
+    var table = document.getElementById("gamer-list");
 
 
     if (view === 'home'){
         game_view.style.display = 'block';
         ranking_view.style.display = 'none';
+        game_list.innerHTML = "";
         load_game_list();
     }
     else if (view === 'ranking'){
         game_view.style.display = 'none';
         ranking_view.style.display = 'block';
+        table.innerHTML = "";
+        load_gamer_list();
     }
 }
 
 function load_game_list(){
     fetch(`/games`)
     .then(response => response.json())
-    .then(g => {
-        g.forEach(a);   
+    .then(gs => {
+        gs.forEach(function(g){
+            game = document.createElement('div');
+            game.addEventListener('click', function(){ 
+                location.href = 'http://127.0.0.1:8000/game' + g.id + '/';
+            })
+            game.className = 'game';
+            game.style.backgroundImage = "url('http://127.0.0.1:8000/media/" + g.photo + "')";
+            title = document.createElement('h3');
+            title.className = 'game-title';
+            title.innerHTML = g.name;
+            title.style.backgroundColor = "rgba(255, 255, 255, 0.788)";
+            game.append(title);
+            document.querySelector('#game-list').append(game);
+        });   
     });
 }
 
-function a(g){
-    console.log(g);
-    console.log(g.name);
-    console.log(g.single_player);
-    console.log(g.multiplayer);
 
-    game = document.createElement('div');
-    game.className = 'game';
-    title = document.createElement('h4');
-    title.className = 'game-title';
-    title.innerHTML = g.name;
-    game.append(title);
-    document.querySelector('#game-list').append(game);
+function load_gamer_list(){
+    
+    fetch(`/gamer`)
+    .then(response => response.json())
+    .then(gs => {
+        let i = 0;
+        gs.forEach(function(g){            
+            var table = document.getElementById("gamer-list");
+
+            var row = table.insertRow(i);
+            
+            var cell1 = row.insertCell(0);
+            cell1.className = "gamer-name";
+            var cell2 = row.insertCell(1);
+            cell2.className = "gamer-total";
+            var cell3 = row.insertCell(2);
+            cell3.className = "gamer-win";
+
+            cell1.innerHTML = g.user;
+            cell2.innerHTML = g.total_games;
+            cell3.innerHTML = g.win_games;
+            i++;
+        });   
+    });
 }

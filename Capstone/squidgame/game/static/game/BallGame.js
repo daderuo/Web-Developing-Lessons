@@ -15,14 +15,11 @@ if (turn > 1 || turn < 0 ){
     turn = 0;
     computer_ball_n = 10;
     userball_n = 10;
+    fetch(`http://127.0.0.1:8000/dashboard/profile_update/1`)
+    .then(response => response.json());
     //console.log(turn);
 }
-if (computer_ball_n < 0 || computer_ball_n > 20){
-    computer_ball_n = 10;
-}
-if (user_ball_n < 0 || user_ball_n > 20){
-    user_ball_n = 10;
-}
+
 
 var computer_ball_select = 0;
 var guess = false;
@@ -49,7 +46,13 @@ document.addEventListener('DOMContentLoaded', function(){
     user_ball_select_button.addEventListener('click', function() {
         user_ball_select = parseInt(user_ball_select_bar.value);
         //console.log(user_ball_select);
-        var computer_guess = getRandomInt(1);
+        var computer_guess = 0;
+        if(user_ball_n === 1){
+            computer_guess = 1;
+        }else{
+            computer_guess = getRandomInt(1);
+        }
+        
         if (computer_guess === 0){
             guess = GuessCheck(user_ball_select,true);
         }
@@ -74,6 +77,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
     PageUpdate();
     fade('container',true);
+    fetch(`http://127.0.0.1:8000/dashboard/profile_update/1`)
+            .then(response => response.json());
 });
 
 function fade(e,d) {
@@ -92,7 +97,7 @@ function fade(e,d) {
         f_op = 0;
     }
     clearInterval(id);
-    id = setInterval(frame, 15);   
+    id = setInterval(frame, 10);   
     
     function frame() {
         if (op == f_op) {
@@ -110,18 +115,35 @@ function fade(e,d) {
   }
 
 function PageUpdate(){
+    const value = JSON.parse(document.getElementById('user').textContent);
     //Controllo se c'è un vincitore
     if(computer_ball_n <= 0){
         computer_ball_n = 0;
-        fade('container', false);
+        fade('container', false)
         setTimeout(function(){
             game_container.innerHTML = "";
             document.querySelector('#Welcome').innerHTML = "";
             end = document.createElement('h1');
-            end.innerHTML = "User Win";
-            game_container.append(end);
+            end.innerHTML = value +" Win";
+            document.querySelector('#Welcome').append(end);
+
+            r = document.createElement('button');
+            r.id = 'restart';
+            r.innerHTML = "Restart";
+            r.addEventListener('click', function(){
+                location.href = "";
+            });
+            game_container.append(r); 
+            
+            dashboard = document.createElement('button');
+            dashboard.id = 'dashboard';
+            dashboard.innerHTML = "Home";
+            dashboard.addEventListener('click', function(){
+                location.href = "http://127.0.0.1:8000/";
+            });
+            game_container.append(dashboard);
             fade('container', true);
-        },3000);        
+        },2000);        
         turn = 2;
         localStorage.clear();                        
     }
@@ -132,17 +154,33 @@ function PageUpdate(){
             game_container.innerHTML = "";
             document.querySelector('#Welcome').innerHTML = "";
             end = document.createElement('h1');
-            end.innerHTML = "User Lose";
-            game_container.append(end);
+            end.innerHTML = value + " Lose";
+            document.querySelector('#Welcome').append(end);
+
+            r = document.createElement('button');
+            r.id = 'restart';
+            r.innerHTML = "Restart";
+            r.addEventListener('click', function(){
+                location.href = "";
+            });
+            game_container.append(r); 
+            
+            dashboard = document.createElement('button');
+            dashboard.id = 'dashboard';
+            dashboard.innerHTML = "Home";
+            dashboard.addEventListener('click', function(){
+                location.href = "http://127.0.0.1:8000/";
+            }); 
+            game_container.append(dashboard);
             fade('container', true);
-        },3000);        
+        },2000);        
         turn = 2;
         localStorage.clear();               
     }
     else{
         //aggiorno quantità di biglie
         computer_ball_text.innerHTML = "Computer: " + computer_ball_n + " ball";
-        const value = JSON.parse(document.getElementById('user').textContent);
+        //const value = JSON.parse(document.getElementById('user').textContent);
         user_ball_text.innerHTML = value + ": " + user_ball_n + " ball";
     }   
 
@@ -179,52 +217,37 @@ function PageUpdate(){
         user_ball_select_bar.style.display = 'inline';
         user_ball_select_button.style.display = 'inline';
     }
+    else if (turn === 2){
+        if(computer_ball_n <= 0){
+            fetch(`http://127.0.0.1:8000/dashboard/profile_update/2`)
+            .then(response => response.json());
+        } 
+    }
+
 }
 
 function TurnChange(guess){
     if(turn === 0){
         //turno di user
         if(guess){
-            //console.log (computer_ball_n);
-            //console.log (user_ball_n);
             computer_ball_n = computer_ball_n - computer_ball_select;
             user_ball_n = user_ball_n + computer_ball_select;
-            //console.log("user win");
-            //console.log (computer_ball_n);
-            //console.log (user_ball_n);
         }
         else{
-            //console.log (computer_ball_n);
-            //console.log (user_ball_n);
             computer_ball_n = computer_ball_n + computer_ball_select;
             user_ball_n = user_ball_n - computer_ball_select;
-            //console.log("user lose");
-            //console.log (computer_ball_n);
-            //console.log (user_ball_n);
         }
         turn = 1;
     }
     else if (turn === 1) {
         //turno di computer
         if(guess){
-            //console.log (computer_ball_n);
-            //console.log (user_ball_n);
             user_ball_n = user_ball_n - user_ball_select;
             computer_ball_n = computer_ball_n + user_ball_select;
-            
-            //console.log("computer win");
-            ////console.log (user_ball_select);
-            //console.log (user_ball_n);
-            //console.log (computer_ball_n);
         }
         else{
-            //console.log (computer_ball_n);
-            //console.log (user_ball_n);
             user_ball_n = user_ball_n + user_ball_select;
             computer_ball_n = computer_ball_n - user_ball_select;
-            //console.log("computer lose");
-            //console.log (computer_ball_n);
-            //console.log (user_ball_n);
         }
         turn = 0;
     }
@@ -234,7 +257,6 @@ function TurnChange(guess){
     localStorage.setItem('user_ball_n',user_ball_n);
 
     setTimeout(PageUpdate,300);
-    //PageUpdate();
 }
 
 

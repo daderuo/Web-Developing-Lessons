@@ -11,7 +11,7 @@
         font-size: 3vw;
     }
 
-    #even,#odd,#select{
+    #even,#odd,#select,#restart, #dashboard{
         font-size: 3vw;
         width: 25%;
     }
@@ -30,19 +30,9 @@
         font-size: 30px;
     }
 
-    #even,#odd,#select{
+    #even,#odd,#select,#restart, #dashboard{
         font-size: 30px;
         width: fit-content;
-    }
-}
-
-@keyframes fade_in{
-    0%{
-        opacity: 0;
-    }
-
-    100%{
-        opacity:1;
     }
 }
 
@@ -62,8 +52,8 @@
 
 body{
     text-align: center;
-    background-image: url('img/biglie_bg.jpeg');
-    background-size: cover;
+    background-image: url('http://127.0.0.1:8000/media/photo/biglie_bg.jpeg');
+    background-size:cover;
     background-repeat: no-repeat;
 }
 
@@ -72,7 +62,7 @@ body{
     color: red;
 }
 
-#even,#odd,#select{
+#even,#odd,#select, #restart, #dashboard{
     color: rgb(0, 159, 252);
 }
 
